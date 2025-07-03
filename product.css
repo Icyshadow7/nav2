@@ -1,3 +1,8 @@
+html {
+  scroll-behavior: smooth;
+}
+
+
 
 body {
     font-family: Arial, sans-serif;
@@ -87,6 +92,7 @@ font-size:18px;
     position: absolute;
 left: 22%;
 }
+
 
 .product-card p {
     color: #666;
