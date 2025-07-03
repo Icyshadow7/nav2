@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f9;
+    background-color:rgb(171, 171, 212);
     position: relative;
     overflow-x: hidden;
     background-image: url('images/og.jpg');
@@ -30,9 +30,10 @@ nav li a .prod{
     position: relative;
     
 }
-.
-.content {
+
+.content .ok {
     color:black;
+    font-size:16px;
     overflow:hidden;
 
 }
@@ -47,7 +48,7 @@ nav li a .prod{
     margin: 20px;
     margin-left: 30%;
     height: 200px;
-    
+   
     transition: transform 0.3s ease;
     display: flex;
     justify-content: flex-end;
