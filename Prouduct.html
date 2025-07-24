@@ -184,6 +184,9 @@ function addToCart(name, price,image,descElement) {
   showToast(`${name} added to cart!`);
   
 }
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartCount();
+});
 
 
 
