@@ -9,6 +9,27 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body id="tt">
+    <div id="toast" style="
+  visibility: hidden;
+  width: 25%;
+  height:6%;
+  background: #36f43f; /* red alert color */
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+">
+</div>
  <nav class="navbar">
         <div class="logo">
             <a href="index.html"><img src="images/ii.jpg"></a>
@@ -20,9 +41,10 @@
             <li><a href=" #foooter" class="pkk">Contact</a></li>
         </ul>
         <div class="nav-icons">
-            <a href="#search"><i class="fa fa-search"></i></a>
-            <a href="#cart"><i class="fa fa-shopping-cart"></i></a>
-            <a href="#profile"><i class="fa fa-user"></i></a>
+            
+             <div class="cart" onclick="window.location.href='cart.html'">
+    🛒 Cart <span id="cart-count">0</span>
+            
         </div>
     </nav>
 <div class="container">
@@ -33,63 +55,63 @@
         <img src="images/1.jpg" alt="Product 1">
         <div class="content">
            <h2>Wireless Headphone</h2>
-    <p class="ok">High-quality wireless headphones with noise cancellation and long battery life.</p>
-    <p class="price">Price: $59.99</p>
-            <a href="#" class="button">Buy Now</a>
+    <p id="desc1">High-quality wireless headphones with noise cancellation and long battery life.</p>
+    <p class="price">Price: $60</p>
+           <button onclick="addToCart(' Wireless Headphone',60,'images/1.jpg',document.getElementById('desc1'))" >Add to Cart</button>
         </div>
     </div>
     <div class="product-card">
         <img src="images/2.jpg" alt="Product 2">
         <div class="content">
              <h2>Tune Headphone</h2>
-      <p class="ok"> High-quality wireless headphones.</p>
-      <p class="price">Price: $59.99</p>
-            <a href="#" class="button">Buy Now</a>
+      <p id="des2"> High-quality wireless headphones.</p>
+      <p class="price">Price: $60</p>
+            <button onclick="addToCart(' Tune Headphone',60,'images/2.jpg',document.getElementById('desc2'))" >Add to Cart</button>
         </div>
     </div>
     <div class="product-card">
         <img src="images/3.jpg" alt="Product 3">
         <div class="content">
              <h2>PowerMate 5K</h2>
-      <p class="ok"> 5000mAh power bank with fast charging.</p>
+      <p id="desc3"> 5000mAh power bank with fast charging.</p>
       <p class="price">Price: $25.00</p>
-            <a href="#" class="button">Buy Now</a>
+            <button onclick="addToCart('PowerMate 5K',25,'images/3.png',document.getElementById('desc3'))"  >Add to Cart</button>
         </div>
     </div>
     <div class="product-card">
         <img src="images/4.jpg" alt="Product 4">
         <div class="content">
             <h2> LED Strip</h2>
-      <p class="ok"> Smart LED light strip with remote control.</p>
-      <p class="price">Price: $29.90</p>
-            <a href="#" class="button">Buy Now</a>
+      <p id="desc4"> Smart LED light strip with remote control.</p>
+      <p class="price">Price: $29</p>
+             <button onclick="addToCart(' LED Strip',29,'images/4.jpg',document.getElementById('desc4'))" >Add to Cart</button>
         </div>
     </div>
     <div class="product-card">
         <img src="images/5.jpg" alt="Product 5">
         <div class="content">
            <h2> Multicolour Carpet</h2>
-      <p class="ok">Multicolor 6.5*4 Feet Anti Slip Rubber Grip Fur Shaggy Rug Carpet Galaicha.</p>
-      <p class="price">Price: $29.90</p>
-            <a href="#" class="button">Buy Now</a>
+      <p id="desc5">Multicolor 6.5*4 Feet Anti Slip Rubber Grip Fur Shaggy Rug Carpet Galaicha.</p>
+      <p class="price">Price: $29</p>
+            <button onclick="addToCart('Multicolour Carpet',29,'images/5.jpg',document.getElementById('desc5'))" >Add to Cart</button>
         </div>
     </div>
     <div class="product-card">
         <img src="images/laptop6.jpg" alt="Product 1">
         <div class="content">
             <h2> Dell Latitude 5300</h2>
-      <p class="ok">Laptop Dell Latitude 5300 , Laptop 13.3" Intel Core i5-8365U 1.6GHz up to 4.1GHz, 8GB DDR4 RAM, 256GB SSD Laptop</p>
-      <p class="price">Price: $29.90</p>
-            <a href="#" class="button">Buy Now</a>
+      <p id="desc6">Laptop Dell Latitude 5300 , Laptop 13.3" Intel Core i5-8365U 1.6GHz up to 4.1GHz, 8GB DDR4 RAM, 256GB SSD Laptop</p>
+      <p class="price">Price: $29</p>
+             <button onclick="addToCart(' Dell Latitude 5300',29,'images/laptop6.jpg',document.getElementById('desc6'))" >Add to Cart</button>
         </div>
     </div>
     <div class="product-card">
         <img src="images/6.jpg" alt="Product 1">
         <div class="content">
              <h2> Iphone 16</h2>
-      <p class="ok">The iPhone 16 features a 6.1-inch OLED display and is powered by Apple's A18 processor. It includes a 3561 mAh battery, 8 GB of RAM, and storage options up to 512 GB.</p>
-            <p class="price">Price: $29.90</p>
-            <a href="#" class="button">Buy Now</a>
+      <p id="desc7">The iPhone 16 features a 6.1-inch OLED display and is powered by Apple's A18 processor. It includes a 3561 mAh battery, 8 GB of RAM, and storage options up to 512 GB.</p>
+            <p class="price">Price: $29</p>
+            <button onclick="addToCart(' Iphone 16',29,'images/6.jpg',document.getElementById('desc7'))" >Add to Cart</button>
         </div>
     </div>
 
@@ -97,9 +119,9 @@
         <img src="images/laptop8.jpg" alt="Product 6">
         <div class="content">
              <h2>Dell Vostro 3530 </h2>
-      <p class="ok"> Dell Vostro 3530 i5 13th Gen | 16GB RAM | 512GB SSD | 15.6" 120Hz FHD | Black.</p>
-            <p class="price">Price: $29.90</p>
-            <a href="#" class="button">Buy Now</a>
+      <p id="des8"> Dell Vostro 3530 i5 13th Gen | 16GB RAM | 512GB SSD | 15.6" 120Hz FHD | Black.</p>
+            <p class="price">Price: $29</p>
+             <button onclick="addToCart(' Dell Vostro 3530',29,'images/laptop8jpg',document.getElementById('desc8'))" >Add to Cart</button>
         </div>
     </div> 
 </div>
@@ -121,5 +143,50 @@
       © 2025 Mrzn's. All rights reserved.
     </div>
   </footer>
+     <script>
+function getCart() {
+  return JSON.parse(localStorage.getItem('cart')) || [];
+}
+
+function saveCart(cart) {
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function updateCartCount() {
+  const cart = getCart();
+  // sum all quantities
+  let count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  document.getElementById('cart-count').textContent = count;
+}
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.innerHTML = `<span style="color: #4BB543; font-weight: bold; margin-right: 8px;">✔️</span>${message}`;
+  toast.style.visibility = 'visible';
+  toast.style.opacity = '1';
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.visibility = 'hidden';
+  }, 3000);
+}
+
+function addToCart(name, price,image,descElement) {
+   const description = descElement.textContent;
+  let cart = getCart();
+  let existing = cart.find(item => item.name === name);
+  if (existing) {
+    existing.quantity += 1; // increase quantity
+  } else {
+     cart.push({name, price, image, description,quantity:1});
+  }
+  saveCart(cart);
+  updateCartCount();
+  showToast(`${name} added to cart!`);
+  
+}
+
+
+
+</script>
 </body>
 </html>

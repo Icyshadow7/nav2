@@ -13,6 +13,29 @@
 </head>
 <body id="hy">
     <!-- Navbar -->
+ <div id="toast" style="
+  visibility: hidden;
+  width: 25%;
+  height:6%;
+  background: #36f43f; /* red alert color */
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+">
+</div>
+
+
     <nav class="navbar">
         <div class="logo">
             <a href="#hy"><img src="images/ii.jpg"></a>
@@ -24,14 +47,19 @@
             <li><a href="#foooter">Contact</a></li>
         </ul>
         <div class="nav-icons">
-            <a href="#search"><i class="fa fa-search"></i></a>
-            <a href="Prouduct.html" target="_blank"><i class="fa fa-shopping-cart"></i></a>
-            <a href="https://github.com/Icyshadow7" target="_blank"><i class="fa fa-user"></i></a>
+            
+            <div class="cart" onclick="window.location.href='cart.html'">
+    🛒  <span id="cart-count">0</span>
+  </div>
+
         </div>
     </nav>
 
+
     <!-- Hero Section -->
     <header class="hero">
+
+
         <div class="hero-text">
             <h1>Welcome to ShopEasy</h1>
             <p>Your one-stop shop for everything you need.</p>
@@ -46,29 +74,35 @@
             <div class="product-card">
                 <img src="images/11.png" alt="Product 1">
                 <h3>Dell Latitude 5300</h3>
-                <p> Price: $25.99</p>
-                <a href="Prouduct.html" target="_blank" class="btn">Add to Cart</a>
+                <p id="desc4">The Dell Latitude 5300 is a premium business laptop designed for professionals who need power, security, and portability in a compact form.</p>
+                <p> Price: $25</p>
+                <button onclick="addToCart('Dell Latitude 5300',25,'images/11.png',document.getElementById('desc4'))" >Add to Cart</a>
             </div>
             <div class="product-card">
                 <img src="images/12.png" alt="Product 2">
                 
                  <h3> HP NOTEBOOK</h3>
+                 <p id="desc2">
+                  The HP Notebook is a reliable and stylish laptop designed to meet everyday computing needs, whether for work, study, or entertainment
+                 </p>
+                 
      
-      <p class="price">Price: $29.90</p>
-                <a href="Prouduct.html" target="_blank" class="btn">Add to Cart</a>
+      <p class="price">Price: $29</p>
+                <button onclick="addToCart('HP NOTEBOOK',29,'images/12.png',document.getElementById('desc2'))" >Add to Cart</button>
             </div>
             <div class="product-card">
                 <img src="images/6.jpg" alt="Product 3">
                 <h3> Iphone 16</h3>
-      
-            <p class="price">Price: $29.90</p>
-                <a href="Prouduct.html" target="_blank" class="btn">Add to Cart</a>
+      <p id="desc3" class="desc">The iPhone 16 features a 6.1-inch OLED display and is powered by Apple's A18 processor. It includes a 3561 mAh battery, 8 GB of RAM, and storage options up to 512 GB.</p>
+            <p class="price">Price: $29</p>
+               <button onclick="addToCart(' Iphone 16',29,'images/6.jpg',document.getElementById('desc3'))" >Add to Cart</button>
             </div>
             <div class="product-card">
                 <img src="images/13.png" alt="Product 4">
                 <h3>Dell Vostro 3520</h3>
-                <p>Price: $30.99</p>
-                <a href="Prouduct.html" target="_blank" class="btn">Add to Cart</a>
+                <p>Price: $30</p>
+                <p id="desc1" class="desc">The Dell Vostro 3520 is a 15.6‑inch business‑class laptop designed for productivity, portability, and durability.</p>
+                <button onclick="addToCart('Dell Vostro 3520',30,'images/13.png',document.getElementById('desc1'))" >Add to Cart</button>
             </div>
         </div>
     </section>
@@ -96,6 +130,57 @@
     </div>
   </footer>
     </footer>
+
+     <script>
+function getCart() {
+  return JSON.parse(localStorage.getItem('cart')) || [];
+}
+
+function saveCart(cart) {
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function updateCartCount() {
+  const cart = getCart();
+  // sum all quantities
+  let count = cart.reduce((sum, item) => sum + item.quantity, 0);
+  document.getElementById('cart-count').textContent = count;
+}
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.innerHTML = `<span style="color: #4BB543; font-weight: bold; margin-right: 8px;">✔️</span>${message}`;
+  toast.style.visibility = 'visible';
+  toast.style.opacity = '1';
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.visibility = 'hidden';
+  }, 3000);
+}
+function addToCart(name, price,image,descElement) {
+   const description = descElement.textContent;
+  let cart = getCart();
+  let existing = cart.find(item => item.name === name);
+  if (existing) {
+    existing.quantity += 1; // increase quantity
+  } else {
+     cart.push({name, price, image, description,quantity:1});
+  }
+  saveCart(cart);
+  updateCartCount();
+ showToast(`${name} added to cart!`);
+
+
+}
+
+</script>
+  
+
+
+
+
+</script>
+
 </body>
 </html>
 

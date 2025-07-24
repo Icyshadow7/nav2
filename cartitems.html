@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E‑Commerce Shop with Slide Cart</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f4f4;
+}
+header {
+  background: #2c3e50;
+  color: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cart {
+  position: relative;
+  cursor: pointer;
+}
+.cart span {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  border-radius: 50%;
+  padding: 2px 6px;
+}
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+.product {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.product img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.product .pdesc {
+  font-size: 14px;
+  color: #555;
+  min-height: 40px;
+}
+button {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+button:hover {
+  background: #1e8e4f;
+}
+
+/* 🔥 Slide cart styles */
+.cart-panel {
+  position: fixed;
+  top: 0;
+  right: -400px; /* hidden initially */
+  width: 400px;
+  height: 100%;
+  background: white;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.2);
+  transition: right 0.3s ease;
+  padding: 20px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+.cart-panel.active {
+  right: 0;
+}
+.cart-panel header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  color: #333;
+  padding: 0;
+}
+.cart-item {
+  display: flex;
+  gap: 10px;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+.cart-item img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 5px;
+  transition: transform 0.3s ease;
+}
+.cart-item img:hover {
+  transform: scale(1.3);
+  cursor: zoom-in;
+}
+.cart-item-details {
+  flex: 1;
+}
+.cart-item-details strong {
+  display: block;
+}
+.cart-item-details .desc {
+  font-size: 13px;
+  color: #555;
+}
+.cart-total {
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 15px;
+}
+.close-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.qty-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.qty-controls button {
+  background: #555;
+  border: none;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.qty-controls button:hover {
+  background: #333;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h2>🛍️ My Shop</h2>
+  <div class="cart" id="cart-icon">
+    🛒 Cart <span id="cart-count">0</span>
+  </div>
+</header>
+
+<main class="products">
+  <div class="product">
+    <img src="https://via.placeholder.com/120x120?text=Apple" alt="Apple">
+    <h3 class="pname">Apple</h3>
+    <p class="pdesc">Fresh red apples, crispy and sweet.</p>
+    <p class="pprice">$1</p>
+    <button onclick="addToCart('Apple',1,this.parentElement.querySelector('.pdesc'),this.parentElement.querySelector('img').src)">Add to Cart</button>
+  </div>
+
+  <div class="product">
+    <img src="https://via.placeholder.com/120x120?text=Banana" alt="Banana">
+    <h3 class="pname">Banana</h3>
+    <p class="pdesc">Sweet ripe bananas full of energy.</p>
+    <p class="pprice">$2</p>
+    <button onclick="addToCart('Banana',2,this.parentElement.querySelector('.pdesc'),this.parentElement.querySelector('img').src)">Add to Cart</button>
+  </div>
+
+  <div class="product">
+    <img src="https://via.placeholder.com/120x120?text=Orange" alt="Orange">
+    <h3 class="pname">Orange</h3>
+    <p class="pdesc">Juicy oranges rich in vitamin C.</p>
+    <p class="pprice">$3</p>
+    <button onclick="addToCart('Orange',3,this.parentElement.querySelector('.pdesc'),this.parentElement.querySelector('img').src)">Add to Cart</button>
+  </div>
+</main>
+
+<!-- 🔥 Slide-in cart panel -->
+<div class="cart-panel" id="cart-panel">
+  <header>
+    <h3>Your Cart</h3>
+    <button class="close-btn" onclick="toggleCart()">Close ✖</button>
+  </header>
+  <div id="cart-items"></div>
+  <div class="cart-total" id="cart-total"></div>
+</div>
+
+<script>
+// helpers
+function getCart(){ return JSON.parse(localStorage.getItem('cart')) || []; }
+function saveCart(cart){ localStorage.setItem('cart', JSON.stringify(cart)); }
+
+// update cart count in icon
+function updateCartCount(){
+  let totalItems = getCart().reduce((sum, item) => sum + item.quantity, 0);
+  document.getElementById('cart-count').textContent = totalItems;
+}
+
+// add to cart
+function addToCart(name, price, descElement, image){
+  const description = descElement.textContent;
+  let cart = getCart();
+  let existing = cart.find(item => item.name === name);
+  if(existing){
+    existing.quantity++;
+  } else {
+    cart.push({ name, price, description, image, quantity: 1 });
+  }
+  saveCart(cart);
+  updateCartCount();
+  renderCart();
+  alert(`${name} added to cart!`);
+}
+
+// render cart panel
+function renderCart(){
+  const cart = getCart();
+  const container = document.getElementById('cart-items');
+  container.innerHTML = '';
+  let grandTotal = 0;
+
+  cart.forEach((item, index) => {
+    const itemTotal = item.price * item.quantity;
+    grandTotal += itemTotal;
+    container.innerHTML += `
+      <div class="cart-item">
+        <img src="${item.image}" alt="${item.name}">
+        <div class="cart-item-details">
+          <strong>${item.name}</strong>
+          <div class="desc">${item.description}</div>
+          <div>Price: $${item.price}</div>
+          <div>Qty: ${item.quantity}</div>
+          <div>Item Total: $${itemTotal}</div>
+        </div>
+        <div class="qty-controls">
+          <button onclick="changeQty(${index},-1)">➖</button>
+          <button onclick="changeQty(${index},1)">➕</button>
+          <button onclick="removeItem(${index})">🗑</button>
+        </div>
+      </div>
+    `;
+  });
+
+  document.getElementById('cart-total').textContent = "Grand Total: $" + grandTotal;
+}
+
+// change quantity
+function changeQty(index, delta){
+  let cart = getCart();
+  cart[index].quantity += delta;
+  if(cart[index].quantity <= 0) cart.splice(index,1);
+  saveCart(cart);
+  updateCartCount();
+  renderCart();
+}
+
+// remove single item
+function removeItem(index){
+  let cart = getCart();
+  cart.splice(index,1);
+  saveCart(cart);
+  updateCartCount();
+  renderCart();
+}
+
+// toggle panel
+function toggleCart(){
+  const panel = document.getElementById('cart-panel');
+  panel.classList.toggle('active');
+}
+
+// initial render
+updateCartCount();
+renderCart();
+
+// open cart when icon clicked
+document.getElementById('cart-icon').addEventListener('click', toggleCart);
+</script>
+
+</body>
+</html>
