@@ -140,6 +140,26 @@ header {
 </style>
 </head>
 <body>
+<div id="toast" style="
+  visibility:hidden;
+  width:25%;
+  background:#4BB543;
+  color:#fff;
+  text-align:center;
+  padding:15px 0;
+  position:fixed;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:9999;
+  font-size:16px;
+  font-weight:bold;
+  border-radius:0 0 8px 8px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.3);
+  opacity:0;
+  transition:opacity 0.5s ease,visibility 0.5s ease;
+">
+</div>
 
 <header>
   <h2>🛒 Your Cart</h2>
@@ -151,7 +171,24 @@ header {
   <div class="total" id="total"></div>
   <div class="actions">
     <button onclick="clearCart()">Clear Cart</button>
+      <div id="cart-container">
+    <button id="buy-all-btn" style="
+  margin-top:20px;
+  padding:10px 20px;
+  background:#4BB543;
+  color:#fff;
+  border:none;
+  font-weight: bold;
+  border-radius:8px;
+  font-size:16px;
+  cursor:pointer;
+">
+ Buy All
+</button>
+
   </div>
+  </div>
+
 </div>
 
 <script>
@@ -217,8 +254,56 @@ function clearCart(){
   localStorage.removeItem('cart');
   renderCart();
 }
+// ✅ Render cart items on page
 
-renderCart();
+
+// ✅ Toast function
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.style.visibility = 'visible';
+  toast.style.opacity = '1';
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.visibility = 'hidden';
+  }, 3000);
+}
+
+// ✅ Buy All button click
+document.addEventListener('DOMContentLoaded', function () {
+  renderCart();
+
+  const buyBtn = document.getElementById('buy-all-btn');
+  if (buyBtn) {
+    buyBtn.addEventListener('click', function () {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      if (cart.length === 0) {
+        showToast("❌ Your cart is empty!");
+        return;
+      }
+
+      // calculate total
+      let totalCost = 0;
+      cart.forEach(item => {
+        totalCost += item.price * item.quantity;
+      });
+
+      if (confirm(`Your total is $${totalCost}. Do you want to proceed with the purchase?`)) {
+        // show success toast
+        showToast("✅ Thank you for your purchase!");
+        // clear cart
+        localStorage.removeItem('cart');
+        // re-render cart
+        renderCart();
+        // if cart count exists on page, reset it
+        const cartCount = document.getElementById('cart-count');
+        if (cartCount) cartCount.textContent = '0';
+      }
+    });
+  }
+});
+
+
 </script>
 
 </body>
