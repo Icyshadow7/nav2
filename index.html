@@ -14,24 +14,28 @@
 <body id="hy">
     <!-- Navbar -->
  <div id="toast" style="
-  visibility: hidden;
-  width: 25%;
-  height:6%;
-  background: #36f43f; /* red alert color */
-  color: white;
-  text-align: center;
-  padding: 15px 0;
+   visibility: hidden;
+  min-width: max-content;
+  max-width: 90%;
+  background-color: #4BB543; /* default success green */
+  color: #fff;
+  text-align: left;
+  border-radius: 8px;
+  padding: 15px 20px;
   position: fixed;
-  top: 0;
+  top: 10%;
   left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
+  transform: translateX(-50%) translateY(-100%);
+  box-shadow: 0 8px 16px rgba(75, 181, 67, 0.5);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 16px;
-  font-weight: bold;
-  border-radius: 0 0 8px 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  gap: 12px;
   opacity: 0;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 9999;
+  pointer-events: none;
 ">
 </div>
 

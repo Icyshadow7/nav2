@@ -3,200 +3,289 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Cart</title>
+<title>Your Cart - ShopEasy</title>
 <style>
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
-  background: #f4f4f4;
+  background: #f5f5f5;
+  color: #333;
 }
 header {
-  background: #2c3e50;
+  background: #000000;
   color: white;
-  padding: 15px 30px;
+  padding: 20px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 2px solid #e0e0e0;
+  
+    position:sticky;
+    top:0;
+    z-index:100;
+
+}
+header h2 {
+  font-size: 24px;
 }
 .items {
   padding: 20px;
-
 }
 .item {
   background: white;
-  margin-bottom: 6px;
-  padding: 15px;
-  border-radius: 8px;
+  margin-bottom: 15px;
+  padding: 20px;
+  border-radius: 10px;
   display: flex;
   align-items: flex-start;
   gap: 20px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+.item:hover {
+  transform: translateY(-3px);
 }
 .item img {
-        max-width: 100%;
-    height: 200px;
-    border-radius: 5px;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
   object-fit: cover;
-  overflow: hidden;
-      transition: all 1.2s;
+  transition: transform 0.8s;
+  border: 1px solid #ccc;
 }
 .item img:hover {
-  transform: scale(1.3);       /* zoom in */
- 
+  transform: scale(1.1);
   z-index: 2;
 }
 .details {
   flex: 1;
 }
-.details .price{
-     font-size: 16px;
-  color: #000000;
-  font-weight:700;
-  font-family: Times New Roman;
+.details .price {
+  font-size: 16px;
+  color: #2e7d32;
+  font-weight: 600;
 }
 .details strong {
-  font-size: 18px;
+  font-size: 20px;
   display: block;
+  margin-bottom: 6px;
+  color: #212121;
 }
-
 .details .desc {
-  font-size: 16px;
-  color: #000000;
-  font-weight:700;
-  font-family: Times New Roman;
-  margin: 4px 0;
+  font-size: 15px;
+  color: #555;
+  margin: 5px 0;
 }
 .details .line {
   font-size: 14px;
-    font-weight:700;
-  color: #000000;
-   font-family:Arial, Helvetica, sans-serif;
+  color: #666;
 }
-
-
 .item-total {
   font-weight: bold;
-  font-size: 14px;
-  min-width: 100px;
-  padding-top: 10px;
+  font-size: 15px;
+  color: #424242;
+  margin-top: 6px;
 }
 .qty-controls {
   display: flex;
   flex-direction: column;
-  gap: 5px;
   align-items: flex-end;
-   border: none;
+  gap: 6px;
 }
-.sad{
-     
-  color: rgb(0, 0, 0);
+.qty-controls button {
+  background-color: #1976d2;
+  color: white;
   border: none;
-  padding:  6px 0 6px  0;
-  border-radius: 8px;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-      background-color: transparent;
-    border: none;
+  transition: background-color 0.3s ease;
 }
-.green .red{
-    background-color: transparent;
-    border: none;
+.qty-controls button:hover {
+  background-color: #48d640;
 }
-.qty-controls .remove-btn {
-  background: #999393;
-  color: rgb(0, 0, 0);
-  border: none;
-  padding: 10px 8px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
+.qty-controls .black-symbol {
+  background-color: #e0e0e0;
+  color: black;
 }
-.qty-controls button.green:hover { color: #3db451; transition: all 1.2s; }
-.qty-controls button.red:hover { color: #d80909; transition: all 1.2s; }
-
-.remove-btn:hover { background: #41cf48;transition: all 1.2s; }
+.remove-btn {
+  background-color: #d32f2f;
+}
+.remove-btn:hover {
+  background-color: #b71c1c;
+}
 .total {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 20px;
+  text-align: left;
   margin-top: 20px;
+  margin-left: 20px;
+  color: #333;
 }
 .actions {
+  text-align: left;
   margin-top: 20px;
 }
 .actions button {
-  background: #007bff;
-  margin-right: 10px;
-  border: none;
+  background: #2e7d32;
   color: white;
-  padding: 8px 12px;
-  border-radius: 5px;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 15px;
+  margin-left: 10px;
   cursor: pointer;
+  transition: background 0.3s;
 }
-.actions button:hover { background: #0056b3; }
+.actions button a{
+  background: #2e7d32;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 15px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+  text-decoration: none;
+}
+.actions button:hover {
+  background: #1b5e20;
+}
+.actions button a:hover {
+  background: #1b5e20;
+}
+#toast {
+  visibility: hidden;
+  min-width: max-content;
+  max-width: 90%;
+  background-color: #4BB543; /* default success green */
+  color: #fff;
+  text-align: left;
+  border-radius: 8px;
+  padding: 15px 20px;
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100%);
+  box-shadow: 0 8px 16px rgba(75, 181, 67, 0.5);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+#toast.show {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+/* Icon style inside toast if you want to add manually in JS */
+#toast .icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+/* Variations (optional, add class dynamically if needed) */
+#toast.success {
+  background-color: #4BB543;
+  box-shadow: 0 8px 16px rgba(75, 181, 67, 0.5);
+}
+#toast.error {
+  background-color: #d32f2f;
+  box-shadow: 0 8px 16px rgba(211, 47, 47, 0.5);
+}
+#toast.info {
+  background-color: #1976d2;
+  box-shadow: 0 8px 16px rgba(25, 118, 210, 0.5);
+}
+.logo a img{
+  height: 60px;
+  width: 130px;
+  padding-left: 100px;
+ 
+}
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #ffffff;
+    transition: all 2s;
+    position: relative;
+}
+.nav-links li a::before{
+    content: '';
+    background-color: purple;
+    position: absolute;
+    top: 100%;
+left: 0;
+width: 0%;
+height: 10%;
+transition: all 1.3s;
+}
+
+.nav-links li a:hover::before {
+ 
+    width: 103%;
+}
+.nav-links li a:hover{
+    color: rgb(202, 133, 202);
+}
+
+payment-methods{
+  margin-bottom: 10px;
+align-items: right;
+}
 </style>
 </head>
 <body>
-<div id="toast" style="
-  visibility:hidden;
-  width:25%;
-  background:#4BB543;
-  color:#fff;
-  text-align:center;
-  padding:15px 0;
-  position:fixed;
-  top:0;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:9999;
-  font-size:16px;
-  font-weight:bold;
-  border-radius:0 0 8px 8px;
-  box-shadow:0 2px 6px rgba(0,0,0,0.3);
-  opacity:0;
-  transition:opacity 0.5s ease,visibility 0.5s ease;
-">
-</div>
+<div id="toast"></div>
 
 <header>
-  <h2>🛒 Your Cart</h2>
-  <div onclick="window.location.href='index.html'" style="cursor:pointer;">⬅ Back to Shop</div>
+ <div class="logo">
+            <a href="index.html"><img src="images/ii.jpg"></a>
+        </div>
+  <div onclick="window.location.href='index.html'" style="cursor:pointer; font-size: 16px;">⬅ Back to Shop</div>
 </header>
 
 <div class="items" id="cart-items"></div>
 <div class="items">
+   <div class="payment-methods" id="payment-methods" style="display:none; margin-top: 20px;">
+  <h3>Select Payment Method:</h3>
+  <label><input type="radio" name="payment" value="Credit Card" checked> Credit Card</label><br>
+  <label><input type="radio" name="payment" value="PayPal"> PayPal</label><br>
+  <label><input type="radio" name="payment" value="Cash on Delivery"> Cash on Delivery</label><br>
+  <button id="confirm-payment-btn" style="margin-top:15px; background:#1976d2; color:white; border:none; padding:8px 14px; border-radius:5px; cursor:pointer;">Confirm Payment</button>
+  <button id="cancel-payment-btn" style="margin-top:15px; background:#d32f2f; color:white; border:none; padding:8px 14px; border-radius:5px; cursor:pointer; margin-left:10px;">Cancel</button>
+</div>
   <div class="total" id="total"></div>
+   
   <div class="actions">
-    <button onclick="clearCart()">Clear Cart</button>
-      <div id="cart-container">
-    <button id="buy-all-btn" style="
-  margin-top:20px;
-  padding:10px 20px;
-  background:#4BB543;
-  color:#fff;
-  border:none;
-  font-weight: bold;
-  border-radius:8px;
-  font-size:16px;
-  cursor:pointer;
-">
- Buy All
-</button>
+     
+    <button onclick="clearCart()">🗑️ Clear Cart</button>
+    <button id="buy-all-btn"><a href="#payment-methods"> Buy All</a></button>
 
   </div>
-  </div>
-
+  
 </div>
 
+
 <script>
-// get and save cart helpers
 function getCart(){ return JSON.parse(localStorage.getItem('cart')) || []; }
 function saveCart(cart){ localStorage.setItem('cart', JSON.stringify(cart)); }
 
-// render cart
 function renderCart(){
   const cart = getCart();
   const container = document.getElementById('cart-items');
@@ -212,18 +301,15 @@ function renderCart(){
         <img src="${item.image}" alt="${item.name}">
         <div class="details">
           <strong>${item.name}</strong>
-          <div class="desc">Description:${item.description || ""}</div>
+          <div class="desc">${item.description || "No description provided."}</div>
           <div class="price">Unit Price: $${item.price}</div>
           <div class="line">Quantity: ${item.quantity}</div>
-          <div class="item-total">Total Price:$${itemTotal}</div>
+          <div class="item-total">Total: $${itemTotal}</div>
         </div>
-        
         <div class="qty-controls">
-            <div class="sad">
-            
-          <button onclick="changeQty(${index},-1)"class="red">➖</button>
-          <button onclick="changeQty(${index},1)"class="green">➕</button></div>
-          <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+          <button class="black-symbol" onclick="changeQty(${index}, -1)">➖</button>
+          <button class="black-symbol" onclick="changeQty(${index}, 1)">➕</button>
+          <button class="remove-btn" onclick="removeItem(${index})">🗑️ Remove</button>
         </div>
       </div>
     `;
@@ -232,32 +318,26 @@ function renderCart(){
   document.getElementById('total').textContent = 'Grand Total: $' + grandTotal;
 }
 
-// quantity change
-function changeQty(index,delta){
+function changeQty(index, delta){
   let cart = getCart();
   cart[index].quantity += delta;
-  if(cart[index].quantity<=0) cart.splice(index,1);
+  if(cart[index].quantity <= 0) cart.splice(index, 1);
   saveCart(cart);
   renderCart();
 }
 
-// remove item
 function removeItem(index){
   let cart = getCart();
-  cart.splice(index,1);
+  cart.splice(index, 1);
   saveCart(cart);
   renderCart();
 }
 
-// clear cart
 function clearCart(){
   localStorage.removeItem('cart');
   renderCart();
 }
-// ✅ Render cart items on page
 
-
-// ✅ Toast function
 function showToast(message) {
   const toast = document.getElementById('toast');
   toast.textContent = message;
@@ -269,41 +349,53 @@ function showToast(message) {
   }, 3000);
 }
 
-// ✅ Buy All button click
 document.addEventListener('DOMContentLoaded', function () {
   renderCart();
-
   const buyBtn = document.getElementById('buy-all-btn');
-  if (buyBtn) {
-    buyBtn.addEventListener('click', function () {
-      const cart = JSON.parse(localStorage.getItem('cart')) || [];
-      if (cart.length === 0) {
-        showToast("❌ Your cart is empty!");
-        return;
-      }
-
-      // calculate total
-      let totalCost = 0;
-      cart.forEach(item => {
-        totalCost += item.price * item.quantity;
-      });
-
-      if (confirm(`Your total is $${totalCost}. Do you want to proceed with the purchase?`)) {
-        // show success toast
-        showToast("✅ Thank you for your purchase!");
-        // clear cart
-        localStorage.removeItem('cart');
-        // re-render cart
-        renderCart();
-        // if cart count exists on page, reset it
-        const cartCount = document.getElementById('cart-count');
-        if (cartCount) cartCount.textContent = '0';
-      }
+  buyBtn.addEventListener('click', function () {
+    const cart = getCart();
+    if (cart.length === 0) {
+      showToast("❌ Your cart is empty!");
+      return;
+    }
+    let totalCost = 0;
+    cart.forEach(item => {
+      totalCost += item.price * item.quantity;
     });
-  }
+  });
 });
 
+const buyBtn = document.getElementById('buy-all-btn');
+const paymentDiv = document.getElementById('payment-methods');
+const confirmBtn = document.getElementById('confirm-payment-btn');
+const cancelBtn = document.getElementById('cancel-payment-btn');
 
+buyBtn.addEventListener('click', function () {
+  const cart = getCart();
+  if (cart.length === 0) {
+    showToast("❌ Your cart is empty!");
+    return;
+  }
+  paymentDiv.style.display = 'block';  // show payment options inline
+  buyBtn.disabled = true;               // disable buy button while choosing
+});
+
+confirmBtn.addEventListener('click', function () {
+  const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+  showToast(`✅ Payment successful via ${paymentMethod}! Thank you for your purchase.`);
+  paymentDiv.style.display = 'none';
+  buyBtn.disabled = false;
+  localStorage.removeItem('cart');
+  renderCart();
+  const cartCount = document.getElementById('cart-count');
+  if (cartCount) cartCount.textContent = '0';
+});
+
+cancelBtn.addEventListener('click', function () {
+  paymentDiv.style.display = 'none';
+  buyBtn.disabled = false;
+  showToast('Payment cancelled.');
+});
 </script>
 
 </body>
